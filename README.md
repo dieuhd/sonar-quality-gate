@@ -18,6 +18,66 @@ $ npm install -g sonar-quality-gate
 $ quality-gate --help
 ```
 
+Result:
+```bash
+   __ _   _   _    __ _  | | (_) | |_   _   _            __ _    __ _  | |_    ___
+  / _` | | | | |  / _` | | | | | | __| | | | |  _____   / _` |  / _` | | __|  / _ \
+ | (_| | | |_| | | (_| | | | | | | |_  | |_| | |_____| | (_| | | (_| | | |_  |  __/
+  \__, |  \__,_|  \__,_| |_| |_|  \__|  \__, |          \__, |  \__,_|  \__|  \___|
+     |_|                                |___/           |___/
+Usage: quality-gate [options]
+
+Global Options:
+  -h, --help                                                                                                   [boolean]
+  -D, --define  Define sonar property
+                Authentication:
+                sonar.login The authentication token or login of a SonarQube user with Execute Analysis permission on
+                the project.
+                More parameters:
+                - https://docs.sonarqube.org/latest/analysis/analysis-parameters/                                [array]
+      --git     Config git
+                --git.url Git server URL. Default: $GIT_URL
+                --git.token Git token. Default: $GIT_TOKEN
+                --git.project_id Git project ID. Default: $CI_PROJECt_ID
+                --git.merge_id Git merge request IID. Default: $CI_MERGE_REQUEST_IID
+                                                                                                           [default: {}]
+      --sonar   Config sonar
+                --sonar.url Sonarqube server URL. Default: $SONAR_URL or sonar.host.url in file
+                sonar-project.properties.
+                --sonar.token The authentication token of a SonarQube user with Execute Analysis permission on the
+                project. Default: $SONAR_TOKEN
+                --sonar.project_key Sonar project key. Default: sonar.projectKey in file sonar-project.properties
+                                                                                                           [default: {}]
+  -X, --debug   Produce execution debug output                                                [boolean] [default: false]
+```
+
+To run check quality code gate:
+```bash
+quality-gate -Dsonar.login="<token>" --sonar.url="<sonar url>" --sonar.toke="<sonar token>" --git.url="https://gitlab.com" --git.token="xxx" --git.project_id=123 --git.merge_iid=345
+```
+
+
+if set bellow env:
+```bash
+GIT_URL=""
+GIT_TOKEN=""
+CI_PROJECt_ID=""
+CI_MERGE_REQUEST_IID=""
+
+SONAR_URL=""
+SONAR_TOKEN=""
+```
+and has file sonar-project.properties:
+```
+sonar.host.url=
+sonar.projectKey=
+````
+We can use short command:
+```bash
+quality-gate -Dsonar.login=""
+```
+
+
 ## Run with Gitlab-CI
 Use `quality-gate` instead of `sonar-scanner`.
 

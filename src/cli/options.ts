@@ -37,19 +37,19 @@ export function createOptions() {
     })
     .option("git", {
       desc: "Config git \n" +
-        "  --git.url Git server URL\n" +
-        "  --git.token Git token" +
-        "  --git.project_id Git project ID" +
-        "  --git.merge_id Git merge request IID",
+        "  --git.url Git server URL. Default: $GIT_URL\n" +
+        "  --git.token Git token. Default: $GIT_TOKEN\n" +
+        "  --git.project_id Git project ID. Default: $CI_PROJECt_ID\n" +
+        "  --git.merge_id Git merge request IID. Default: $CI_MERGE_REQUEST_IID\n",
       default: {},
       group: "Global Options:",
     })
     .option("sonar", {
       default: {},
       desc: "Config sonar \n" +
-        "  --sonar.url Sonarqube server URL\n" +
-        "  --sonar.token The authentication token of a SonarQube user with Execute Analysis permission on the project." +
-        "  --sonar.project_key Sonar project key",
+        "  --sonar.url Sonarqube server URL. Default: $SONAR_URL or sonar.host.url in file sonar-project.properties.\n" +
+        "  --sonar.token The authentication token of a SonarQube user with Execute Analysis permission on the project. Default: $SONAR_TOKEN\n" +
+        "  --sonar.project_key Sonar project key. Default: sonar.projectKey in file sonar-project.properties\n",
       group: "Global Options:",
     })
     .option("debug", {

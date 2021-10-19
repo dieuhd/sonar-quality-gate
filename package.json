@@ -6,12 +6,17 @@
   "bin": {
     "quality-gate": "./build/index.js"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "scripts": {
     "start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node'",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
-    "local": "npm i -g && quality-gate",
+    "local": "rm -f $(which quality-gate) && npm i -g && quality-gate",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
   },
   "keywords": [
@@ -23,6 +28,8 @@
   "author": "dieuhd",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
     "@types/clear": "^0.1.2",
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.4",
@@ -34,6 +41,7 @@
     "command-exists": "^1.2.9",
     "eslint": "^8.0.1",
     "figlet": "^1.5.2",
+    "husky": "^7.0.2",
     "nodemon": "^2.0.13",
     "rimraf": "^3.0.2",
     "ts-node": "^10.3.0",
