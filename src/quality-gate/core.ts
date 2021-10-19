@@ -73,18 +73,18 @@ export class QualityGate {
         version: version
       });
     }
-    // comment = this.sonar.qualityGate.report(
-    //   quality.projectStatus,
-    //   bugCnt,
-    //   vulCnt,
-    //   smellCnt
-    // );
-    // const mrNote = await this.gitMerge.getQualityDiscussion();
-    // if (mrNote) {
-    //   await this.gitMerge.updateThread(mrNote.id, comment);
-    // } else {
-    //   await this.gitMerge.createThread(comment);
-    // }
+    comment = this.sonar.qualityGate.report(
+      quality.projectStatus,
+      bugCnt,
+      vulCnt,
+      smellCnt
+    );
+    const mrNote = await this.gitMerge.getQualityDiscussion();
+    if (mrNote) {
+      await this.gitMerge.updateThread(mrNote.id, comment);
+    } else {
+      await this.gitMerge.createThread(comment);
+    }
     return true;
   }
 }
