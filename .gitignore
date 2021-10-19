@@ -1,0 +1,6 @@
+build
+node_modules
+start.sh
+build.sh
+sonar-project.properties
+.scannerwork

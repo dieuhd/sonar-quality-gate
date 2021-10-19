@@ -1,0 +1,47 @@
+{
+  "name": "sonar-quality-gate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/index.js",
+  "bin": {
+    "quality-gate": "./build/index.js"
+  },
+  "scripts": {
+    "start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node'",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js",
+    "lint": "eslint . --ext .ts",
+    "local": "npm i -g && quality-gate",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+  },
+  "keywords": [
+    "sonar",
+    "quality code gate",
+    "sonar scanner",
+    "gitlab"
+  ],
+  "author": "dieuhd",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/clear": "^0.1.2",
+    "@types/command-exists": "^1.2.0",
+    "@types/figlet": "^1.5.4",
+    "@types/node": "^16.11.0",
+    "@types/yargs": "^17.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "axios": "^0.23.0",
+    "command-exists": "^1.2.9",
+    "eslint": "^8.0.1",
+    "figlet": "^1.5.2",
+    "nodemon": "^2.0.13",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4",
+    "yargs": "^17.2.1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "clear": "^0.1.0"
+  }
+}
