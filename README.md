@@ -57,7 +57,7 @@ quality-gate -Dsonar.login="<token>" --sonar.url="<sonar url>" --sonar.toke="<so
 ```
 
 
-if set bellow env:
+if set env for bellow parameters:
 ```bash
 GIT_URL=""
 GIT_TOKEN=""
@@ -67,7 +67,7 @@ CI_MERGE_REQUEST_IID=""
 SONAR_URL=""
 SONAR_TOKEN=""
 ```
-and has file sonar-project.properties:
+and has file `sonar-project.properties`:
 ```
 sonar.host.url=
 sonar.projectKey=
@@ -112,6 +112,7 @@ Sonar:
 $ git clone https://github.com/dieuhd/sonar-quality-gate.git
 $ cd sonar-quality-gate
 $ npm install
+$ husky install && chmod ug+x .husky/*
 $ npm run start:dev
 ```
 
