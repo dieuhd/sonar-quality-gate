@@ -6,18 +6,15 @@
   "bin": {
     "quality-gate": "./build/index.js"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "scripts": {
     "start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node'",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "local": "rm -f $(which quality-gate) && npm i -g && quality-gate",
-    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+    "prepare": "husky install",
+    "postinstall": "husky install"
   },
   "keywords": [
     "sonar",
