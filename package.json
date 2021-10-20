@@ -13,8 +13,7 @@
     "lint": "eslint . --ext .ts",
     "local": "rm -f $(which quality-gate) && npm i -g && quality-gate",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
-    "prepare": "husky install",
-    "postinstall": "husky install && chmod ug+x .husky/*"
+    "prepare": "husky install && chmod ug+x .husky/*"
   },
   "keywords": [
     "sonar",
