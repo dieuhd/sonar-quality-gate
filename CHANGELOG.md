@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.2...v1.0.3) (2021-10-20)
+
+
+### Bug Fixes
+
+* remove npm script prepare ([96e674f](https://github.com/dieuhd/sonar-quality-gate/commit/96e674f01bd37613f7c4f36e2b099ec34ff4b460))
+
 ## [1.0.2](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.1...v1.0.2) (2021-10-20)
 
 ## [1.0.1](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.0...v1.0.1) (2021-10-20)
