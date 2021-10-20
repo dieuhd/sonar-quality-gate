@@ -19,8 +19,12 @@ jobs:
           node-version: '14.18.1'
       - name: Install dependencies
         run: npm ci
-      - name: Release
+      - name: Generate Release, Changelogs
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
+      - name: Publish package to NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
