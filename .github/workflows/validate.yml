@@ -1,7 +1,7 @@
 name: Validate
 on: [push]
 jobs:
-  commitlint:
+  validate:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -15,6 +15,9 @@ jobs:
       run: |
         npm install
     - name: Validate commit message
+      id: 
       run: |
         npx commitlint --from=HEAD~1
-      
+    - name: Verify eslint
+      run: |
+        npm run lint
