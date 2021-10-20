@@ -12,8 +12,7 @@
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
     "local": "rm -f $(which quality-gate) && npm i -g && quality-gate",
-    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
-    "prepare": "husky install && chmod ug+x .husky/*"
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
   },
   "keywords": [
     "sonar",
