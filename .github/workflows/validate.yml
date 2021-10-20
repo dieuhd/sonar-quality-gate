@@ -1,0 +1,22 @@
+# This is a basic workflow that is manually triggered
+
+name: Validate
+on: [push]
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - run: echo -n '' > .dockerignore
+    - uses: actions/setup-node@v2.4.1
+      with:
+        node-version: '14.18.1'
+    - name: NPM Install
+      run: |
+        npm install
+    - name: Validate commit message
+      run: |
+        npx commitlint --from=HEAD~1
+      
