@@ -14,7 +14,7 @@
     "local": "rm -f $(which quality-gate) && npm i -g && quality-gate",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
     "prepare": "husky install",
-    "postinstall": "husky install"
+    "postinstall": "husky install && chmod ug+x .husky/*"
   },
   "keywords": [
     "sonar",
@@ -27,6 +27,9 @@
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "@semantic-release/release-notes-generator": "^10.0.2",
     "@types/clear": "^0.1.2",
     "@types/command-exists": "^1.2.0",
     "@types/figlet": "^1.5.4",
@@ -41,6 +44,7 @@
     "husky": "^7.0.2",
     "nodemon": "^2.0.13",
     "rimraf": "^3.0.2",
+    "semantic-release": "^18.0.0",
     "ts-node": "^10.3.0",
     "typescript": "^4.4.4",
     "yargs": "^17.2.1"
@@ -48,5 +52,46 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "clear": "^0.1.0"
+  },
+  "release": {
+    "branches": [
+      "master",
+      "next"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "docs",
+              "scope": "README",
+              "release": "patch"
+            },
+            {
+              "type": "refactor",
+              "release": "patch"
+            },
+            {
+              "type": "config",
+              "release": "patch"
+            },
+            {
+              "type": "style",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/git",
+      [
+        "@semantic-release/github",
+        {
+          "gitlabUrl": "https://github.com/dieuhd/sonar-quality-gate.git"
+        }
+      ]
+    ]
   }
 }
