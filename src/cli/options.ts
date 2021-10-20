@@ -7,8 +7,8 @@ declare type ArgsOutput = (string | number)[];
 
 interface Arguments {
   _: ArgsOutput;
-  git: {[key: string]: string};
-  sonar: {[key: string]: string};
+  git: { [key: string]: string };
+  sonar: { [key: string]: string };
   define: any;
   debug: boolean;
   help: any;
@@ -28,7 +28,7 @@ export function createOptions() {
     .option("define", {
       alias: "D",
       requiresArg: true,
-      desc: "Define sonar property\n\Authentication:\n" + 
+      desc: "Define sonar property\n\Authentication:\n" +
         "sonar.login The authentication token or login of a SonarQube user with Execute Analysis permission on the project.\n" +
         "More parameters:\n" +
         "- https://docs.sonarqube.org/latest/analysis/analysis-parameters/",
@@ -63,6 +63,6 @@ export function createOptions() {
     .version(false)
     .wrap(120)
     .locale("en").parseSync();
-  
-    return argv;
+
+  return argv;
 }

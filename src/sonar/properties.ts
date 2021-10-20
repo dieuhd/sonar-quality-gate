@@ -10,11 +10,11 @@ export class SonarProperties {
     projectDir: string;
   }) {
     this.projectDir = opt.projectDir;
-    
+
     // + "": converts buffer to string
-    const config = fs.readFileSync(this.projectDir + "/sonar-project.properties") + ""; 
+    const config = fs.readFileSync(this.projectDir + "/sonar-project.properties") + "";
     const lines = config.split("\n");
-    for(let i in lines) {
+    for (let i in lines) {
       let line = lines[i];
       if (/^#/g.test(line)) {
         continue;

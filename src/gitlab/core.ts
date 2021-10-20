@@ -1,7 +1,7 @@
 import { Axios } from "../http";
 import { LineType, APIType } from "./enum";
 import * as entity from "./entity";
-import {Git, GitMerge} from "../git";
+import { Git, GitMerge } from "../git";
 
 export class Gitlab implements Git {
   host: string;

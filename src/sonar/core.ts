@@ -23,10 +23,10 @@ export class Sonar {
     projectKey: string;
   }) {
     try {
-      this.config = new SonarProperties({projectDir: process.cwd()});
+      this.config = new SonarProperties({ projectDir: process.cwd() });
       this.host = this.config.getSonarURL();
       this.projectKey = this.config.getProjectKey();
-    } catch (e: any){
+    } catch (e: any) {
       Log.error(e.message);
       this.host = opt.host;
       this.projectKey = opt.host;

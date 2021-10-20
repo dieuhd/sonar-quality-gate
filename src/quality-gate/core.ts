@@ -4,8 +4,8 @@ import { Sonar } from "../sonar";
 const INTERVAL_SECONDS = 60;
 
 declare global {
-  interface Date{
-      isoDateTime: () => string;    
+  interface Date {
+    isoDateTime: () => string;
   }
 }
 // format sonar date
@@ -28,7 +28,7 @@ export class QualityGate {
     this.gitMerge = opt.gitMerge;
   }
 
-  async handler () {
+  async handler() {
     const taskStatus = await this.sonar.getTaskStatus();
     if (!taskStatus || taskStatus.tasks.length == 0) {
       return false;
@@ -67,9 +67,9 @@ export class QualityGate {
         smellCnt++;
       }
       await this.gitMerge.createCommitDiscussion({
-        comment: comment, 
-        path: path, 
-        line: issue.line, 
+        comment: comment,
+        path: path,
+        line: issue.line,
         version: version
       });
     }

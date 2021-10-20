@@ -121,7 +121,7 @@ export class SonarReport {
       status = "failed";
     }
 
-    const report =  `# SonarQube Code Analytics 
+    const report = `# SonarQube Code Analytics 
 ## Quality Gate ${status}
 
 ${this.icon(status)}
@@ -140,7 +140,7 @@ ${this.icon("code_smell")}  ${this.icon(param.codeSmellSecurity)} [${param.codeS
 ${this.coverageIcon(param.coverageValue)} ${coverageText}
 
 ${this.duplicatedIcon(param.duplicatedValue)} ${duplicatedText}`;
-    
+
     return report;
   }
 
