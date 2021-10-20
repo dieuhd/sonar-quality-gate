@@ -56,23 +56,22 @@ export class Sonar {
   private async findIssuesByPage(fromTime: string, page: number) {
     const response = await this.http.get<entity.IssueList>(SONAR_ISSUE_API, {
       componentKeys: this.projectKey,
-      // createdAfter: fromTime,
-      sinceLeakPeriod: true,
+      createdAfter: fromTime,
+      // sinceLeakPeriod: true, // get issues of new code on sonar
       p: page,
       ps: PAGE_SIZE,
     })
     return response.data;
-  };
+  }
 
   async findIssues(fromTime: string): Promise<entity.IssueList> {
-    let issueList: any;
     // first page data
     const issues = await this.findIssuesByPage(fromTime, 1);
-    issueList = issues;
+    const issueList = issues;
     if (issues) {
       const totalPage = Math.ceil(issues.total / issues.ps);
       for (let p = issues.p + 1; p <= totalPage; p++) {
-        let issuePage = await this.findIssuesByPage(fromTime, p);
+        const issuePage = await this.findIssuesByPage(fromTime, p);
         if (!issuePage) {
           break;
         }

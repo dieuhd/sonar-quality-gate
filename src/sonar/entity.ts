@@ -11,7 +11,7 @@ export interface ProjectStatus {
 export interface Condition {
   status: string;
   metricKey: string;
-  actualValue: number;
+  actualValue: string;
 }
 
 export interface Issue {

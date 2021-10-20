@@ -2,7 +2,7 @@ import { GitlabMerge } from "../gitlab";
 import { QualityGate } from "../quality-gate";
 import { Sonar } from "../sonar";
 import { Log } from "../utils";
-import { createOptions } from "./options";
+import { createOptions, Arguments } from "./options";
 import { Shell } from "./shell";
 import commandExistsSync from "command-exists";
 
@@ -23,7 +23,7 @@ declare global {
 
 const SONAR_SCANNER_CMD = "sonar-scanner";
 export class Cli {
-  argv: any;
+  argv: Arguments;
   exec: Shell;
   gitURL: string;
   gitToken: string;
@@ -59,8 +59,8 @@ export class Cli {
   run() {
     try {
       this.sonarScanner((this.generateReport).bind(this));
-    } catch (e: any) {
-      Log.error(e.message);
+    } catch (e) {
+      Log.error(e);
     }
   }
 
@@ -119,10 +119,10 @@ export class Cli {
     });
   }
   private sonarScanner(callback: () => void) {
-    let sonarScannerArgv = [];
-    if (this.argv.D) {
-      for (let i in this.argv.D) {
-        sonarScannerArgv.push("-D" + this.argv.D[i]);
+    const sonarScannerArgv = [];
+    if (this.argv.define) {
+      for (const i in this.argv.define) {
+        sonarScannerArgv.push("-D" + this.argv.define[i]);
       }
     }
     return this.exec.run(SONAR_SCANNER_CMD, sonarScannerArgv, callback);

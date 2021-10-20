@@ -2,11 +2,8 @@ import { spawn } from 'child_process';
 import { Log } from '../utils';
 
 export class Shell {
-
-  constructor() { }
-
   run(command: string, argv?: (string)[], callback?: () => void) {
-    var child = spawn(command, argv);
+    const child = spawn(command, argv);
 
     child.stdout.setEncoding('utf8');
     child.stdout.on('data', function (data) {

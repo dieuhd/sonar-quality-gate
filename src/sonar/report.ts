@@ -1,4 +1,4 @@
-import { Issue } from "./entity";
+import { Issue, ProjectStatus } from "./entity";
 import { MetricKey, QualityStatus, SecurityLevel } from "./enum";
 
 const IMAGE_DIR_LINK = "https://hsonar.s3.ap-southeast-1.amazonaws.com/images/";
@@ -28,7 +28,7 @@ export class SonarReport {
 
   issueNote(issue: Issue) {
     const rule = issue.rule;
-    let ruleLink = this.host + "/coding_rules?open=" + rule + "&rule_key=" + rule;
+    const ruleLink = this.host + "/coding_rules?open=" + rule + "&rule_key=" + rule;
     let note = "";
     note += "**" + issue.message;
     note += "**  [<sub>Why is this an issue?</sub>](" + ruleLink + ") \n\n";
@@ -47,7 +47,7 @@ export class SonarReport {
     if (val >= 5) {
       return SecurityLevel.E;
     }
-    const level: any = {
+    const level: {[key: number]: string} = {
       1: SecurityLevel.A,
       2: SecurityLevel.B,
       3: SecurityLevel.C,
@@ -55,7 +55,7 @@ export class SonarReport {
       5: SecurityLevel.E,
     };
     return level[val];
-  };
+  }
 
   private getIssueURL(type: string) {
     return this.host + `/project/issues?id=${this.projectKey}&resolved=false&sinceLeakPeriod=true&types=${type}`;
@@ -65,7 +65,7 @@ export class SonarReport {
     return this.host + `/project/issues?id=${this.projectKey}&metric=${metric}&view=list`;
   }
 
-  private getIssueSecurity(projectStatus: any) {
+  private getIssueSecurity(projectStatus: ProjectStatus) {
     let bugSecurity = "",
       vulSecurity = "",
       smellSecurity = "",
@@ -73,9 +73,9 @@ export class SonarReport {
 
     let duplicatedCode = -1,
       coverateValue = -1;
-    for (let i in projectStatus.conditions) {
-      let condition = projectStatus.conditions[i];
-      let level = this.securityLevel(condition.actualValue);
+    for (const i in projectStatus.conditions) {
+      const condition = projectStatus.conditions[i];
+      const level = this.securityLevel(condition.actualValue);
       if (condition.metricKey == MetricKey.newReliabilityRrating) {
         bugSecurity = level;
       } else if (condition.metricKey == MetricKey.newMaintainabilityRating) {
@@ -90,7 +90,7 @@ export class SonarReport {
         coverateValue = parseFloat(condition.actualValue);
       }
     }
-    return [bugSecurity, vulSecurity, smellSecurity, hotspotSecurity, duplicatedCode, coverateValue];
+    return [bugSecurity, vulSecurity, smellSecurity, duplicatedCode, coverateValue, hotspotSecurity];
   }
 
   templateReport(param: {
@@ -147,12 +147,12 @@ ${this.duplicatedIcon(param.duplicatedValue)} ${duplicatedText}`;
 
 
   report(
-    projectStatus: any,
+    projectStatus: ProjectStatus,
     bugCount: number,
     vulnerabilityCount: number,
     codeSmellCount: number
   ) {
-    const [bugSecurity, vulSecurity, smellSecurity, hotspotSecurity, duplicatedCode, coverateValue] = this.getIssueSecurity(projectStatus)
+    const [bugSecurity, vulSecurity, smellSecurity, duplicatedCode, coverateValue] = this.getIssueSecurity(projectStatus)
     return this.templateReport({
       status: projectStatus.status,
       bugCount: bugCount,

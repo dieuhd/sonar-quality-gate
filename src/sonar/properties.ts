@@ -14,12 +14,12 @@ export class SonarProperties {
     // + "": converts buffer to string
     const config = fs.readFileSync(this.projectDir + "/sonar-project.properties") + "";
     const lines = config.split("\n");
-    for (let i in lines) {
-      let line = lines[i];
+    for (const i in lines) {
+      const line = lines[i];
       if (/^#/g.test(line)) {
         continue;
       }
-      let data = line.split("=");
+      const data = line.split("=");
       if (data.length != 2) {
         continue;
       }

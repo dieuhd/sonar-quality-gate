@@ -1,4 +1,6 @@
-export interface Git { }
+export interface Git {
+  host: string;
+}
 
 export interface GitMerge {
   getVersion(headers?: any): Promise<any>

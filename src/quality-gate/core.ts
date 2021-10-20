@@ -55,9 +55,9 @@ export class QualityGate {
       vulCnt = 0,
       smellCnt = 0;
     let comment = "";
-    for (let i in sonarIssues.issues) {
+    for (const i in sonarIssues.issues) {
       const issue = sonarIssues.issues[i];
-      let path = issue.component.replace(issue.project + ":", "");
+      const path = issue.component.replace(issue.project + ":", "");
       comment = this.sonar.qualityGate.issueNote(issue);
       if (issue.type == "BUG") {
         bugCnt++;

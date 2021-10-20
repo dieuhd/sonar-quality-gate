@@ -49,8 +49,8 @@ export class GitlabMerge extends Gitlab implements GitMerge {
     }, headers);
     const pattern = /^# SonarQube Code Analytics/g;
     const notes = response.data;
-    for (let i in notes) {
-      let data = notes[i];
+    for (const i in notes) {
+      const data = notes[i];
       if (pattern.test(data.body)) {
         return data;
       }
