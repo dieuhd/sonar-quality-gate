@@ -28,10 +28,6 @@ jobs:
       
       - name: Build app
         run: npm run build
-      - name: Publish package to NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
