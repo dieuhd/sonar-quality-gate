@@ -76,6 +76,10 @@
             {
               "type": "style",
               "release": "patch"
+            },
+            {
+              "type": "design",
+              "release": "false"
             }
           ]
         }
@@ -83,7 +87,12 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/git",
-      "@semantic-release/github",
+      [
+        "@semantic-release/github",
+        {
+          "assets": ["CHANGELOG.md", "package.json", "package-lock.json"]
+        }
+      ],
       "@semantic-release/npm"
     ]
   }
