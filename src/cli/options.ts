@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import figlet from "figlet";
 import yargs from "yargs";
-// import path from "path";
+import path from "path";
 
 declare type ArgsOutput = (string | number)[];
 
@@ -18,8 +18,8 @@ export function createOptions() {
       figlet.textSync('quality-gate', { horizontalLayout: 'full' })
     )
   );
-
-  // const version = require(path.resolve(__dirname, "../../package.json")).version as string;
+  // eslint-disable-next-line  @typescript-eslint/no-var-requires
+  const version = require(path.resolve(__dirname, "../../package.json")).version as string;
   const argv: Arguments = yargs
     .usage("Usage: $0 [options]")
     .help()
@@ -51,6 +51,12 @@ export function createOptions() {
         "  --sonar.project_key Sonar project key. Default: sonar.projectKey in file sonar-project.properties\n",
       group: "Global Options:",
     })
+    .version(version)
+    .option("version", {
+      alias: "v",
+      desc: "Show version",
+      group: "Global Options:"
+    })
     .option("debug", {
       alias: "X",
       desc: "Produce execution debug output",
@@ -58,8 +64,6 @@ export function createOptions() {
       default: false,
       group: "Global Options:",
     })
-    // .option("version", { desc: "Print version number.", group: "Global Options:" })
-    .version(false)
     .wrap(120)
     .locale("en").parseSync();
 
