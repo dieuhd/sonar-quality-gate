@@ -83,11 +83,10 @@
       ],
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
-      "@semantic-release/git",
       [
         "@semantic-release/github",
         {
-          "gitlabUrl": "https://github.com/dieuhd/sonar-quality-gate.git"
+          "assets": ["CHANGELOG.md", "package.json"]
         }
       ]
     ]
