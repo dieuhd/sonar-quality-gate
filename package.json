@@ -48,6 +48,7 @@
     "@types/yargs": "^17.0.4",
     "axios": "^0.23.0",
     "command-exists": "^1.2.9",
+    "yargs": "^17.2.1",
     "figlet": "^1.5.2"
   },
   "release": {
