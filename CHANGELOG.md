@@ -1,3 +1,11 @@
+## [1.0.8](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.7...v1.0.8) (2021-10-21)
+
+
+### Bug Fixes
+
+* show version, npm release ([2999c3d](https://github.com/dieuhd/sonar-quality-gate/commit/2999c3d794562e0cca318836439e65673716f32f))
+* show version, npm release ([15a8580](https://github.com/dieuhd/sonar-quality-gate/commit/15a85808ad71cbf5ab1c2e95294555ea2dacd531))
+
 ## [1.0.7](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.6...v1.0.7) (2021-10-21)
 
 ## [1.0.4](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.3...v1.0.4) (2021-10-21)
