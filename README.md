@@ -9,7 +9,7 @@ Nowaday, Sonarqube have feature quality code gate, but it's not work for Communi
 
 Result:
 
-![Gitlab Quality Gate](./images/gitlab_quality_gate.png)
+![Gitlab Quality Gate](https://raw.githubusercontent.com/dieuhd/sonar-quality-gate/master/images/gitlab_quality_gate.png)
 
 ## Getting Started
 ```bash
