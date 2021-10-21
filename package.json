@@ -79,7 +79,7 @@
             },
             {
               "type": "design",
-              "release": "false"
+              "release": false
             }
           ]
         }
