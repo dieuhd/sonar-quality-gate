@@ -1,4 +1,4 @@
-import { Git, GitMerge } from "../git";
+import { Git, GitMerge, GitReviewParam } from "../git";
 import { Sonar } from "../sonar";
 
 const INTERVAL_SECONDS = 60;
@@ -46,19 +46,14 @@ export class QualityGate {
       return false;
     }
 
-    const version = await this.gitMerge.getVersion();
-    if (!version) {
-      return false;
-    }
-
     let bugCnt = 0,
       vulCnt = 0,
       smellCnt = 0;
-    let comment = "";
+
+    const gitmergeParams: GitReviewParam[] = [];
     for (const i in sonarIssues.issues) {
       const issue = sonarIssues.issues[i];
       const path = issue.component.replace(issue.project + ":", "");
-      comment = this.sonar.qualityGate.issueNote(issue);
       if (issue.type == "BUG") {
         bugCnt++;
       } else if (issue.type == "VULNERABILITY") {
@@ -66,25 +61,22 @@ export class QualityGate {
       } else {
         smellCnt++;
       }
-      await this.gitMerge.createCommitDiscussion({
-        comment: comment,
+      gitmergeParams.push({
+        comment: this.sonar.qualityGate.issueNote(issue),
         path: path,
-        line: issue.line,
-        version: version
-      });
+        line: issue.line
+      })
     }
-    comment = this.sonar.qualityGate.report(
+    // create review comments
+    await this.gitMerge.createReviewComments(gitmergeParams);
+    const comment = this.sonar.qualityGate.report(
       quality.projectStatus,
       bugCnt,
       vulCnt,
       smellCnt
     );
-    const mrNote = await this.gitMerge.getQualityDiscussion();
-    if (mrNote) {
-      await this.gitMerge.updateThread(mrNote.id, comment);
-    } else {
-      await this.gitMerge.createThread(comment);
-    }
+    // create quality report
+    await this.gitMerge.saveQualityDiscussion(comment);
     return true;
   }
 }
