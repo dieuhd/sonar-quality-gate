@@ -11,7 +11,7 @@
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
     "lint": "eslint . --ext .ts",
-    "local": "rm -f $(which quality-gate) && npm i -g && quality-gate",
+    "local": "rm -f $(which quality-gate) && npm run build && npm i -g && quality-gate -h",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
   },
   "keywords": [

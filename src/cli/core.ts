@@ -1,10 +1,14 @@
+import fs from "fs";
+
+import { GitMerge } from "../git";
 import { GitlabMerge } from "../gitlab";
 import { QualityGate } from "../quality-gate";
 import { Sonar } from "../sonar";
 import { Log } from "../utils";
-import { createOptions, Arguments } from "./options";
+import { createOptions, Arguments, Provide } from "./options";
 import { Shell } from "./shell";
 import commandExistsSync from "command-exists";
+import { GithubMerge } from "../github";
 
 declare global {
   namespace NodeJS {
@@ -17,6 +21,8 @@ declare global {
       CI_COMMIT_SHA: string;
       CI_MERGE_REQUEST_IID: string;
       CI_PROJECT_DIR: string;
+      GITHUB_EVENT_PATH: string;
+      GITHUB_REPOSITORY: string;
     }
   }
 }
@@ -31,20 +37,20 @@ export class Cli {
   sonarURL: string;
   sonarProjectKey: string;
   gitProjectID: string;
-  gitMergeIID: string;
+  gitMergeID: string;
 
   constructor() {
     this.argv = createOptions();
     this.exec = new Shell();
-
+    
     this.gitURL = this.argv.git.url ? this.argv.git.url : process.env.GIT_URL;
     this.gitToken = this.argv.git.token ? this.argv.git.token : process.env.GIT_TOKEN;
-    this.gitProjectID = this.argv.git.project_id ? this.argv.git.project_id : process.env.CI_PROJECT_ID;
-    this.gitMergeIID = this.argv.git.merge_iid ? this.argv.git.merge_iid : process.env.CI_MERGE_REQUEST_IID;
+    this.gitProjectID = this.getProjectID(this.argv);
+    this.gitMergeID = this.getMergeID(this.argv);
     this.sonarURL = this.argv.sonar.url ? this.argv.sonar.url : process.env.SONAR_URL;
     this.sonarToken = this.argv.sonar.token ? this.argv.sonar.token : process.env.SONAR_TOKEN;
     this.sonarProjectKey = this.argv.sonar.project_key;
-
+    
     if (!this.validate()) {
       process.exit(1);
     }
@@ -58,7 +64,11 @@ export class Cli {
 
   run() {
     try {
-      this.sonarScanner((this.generateReport).bind(this));
+      if (this.argv.skipScanner) {
+        this.generateReport();
+      } else {
+        this.runSonarScanner((this.generateReport).bind(this));
+      }
     } catch (e) {
       Log.error(e);
     }
@@ -78,8 +88,8 @@ export class Cli {
       Log.error("Missing config git project id.");
       isValid = false;
     }
-    if (!this.gitMergeIID) {
-      Log.error("Missing config git merge iid.");
+    if (!this.gitMergeID) {
+      Log.error("Missing config git merge id.");
       isValid = false;
     }
     if (!this.sonarToken) {
@@ -96,16 +106,26 @@ export class Cli {
       projectKey: this.sonarProjectKey
     });
 
-    const gitlabMerge = new GitlabMerge({
-      host: this.gitURL,
-      token: this.gitToken,
-      projectID: parseInt(this.gitProjectID),
-      mergeRequestIID: parseInt(this.gitMergeIID)
-    });
+    let gitMerge: GitMerge;
+    if (this.argv.provide == Provide.Github) {
+      gitMerge = new GithubMerge({
+        host: this.gitURL,
+        token: this.gitToken,
+        projectID: this.gitProjectID,
+        mergeRequestID: parseInt(this.gitMergeID)
+      })
+    } else {
+      gitMerge = new GitlabMerge({
+        host: this.gitURL,
+        token: this.gitToken,
+        projectID: this.gitProjectID,
+        mergeRequestIID: parseInt(this.gitMergeID)
+      });
+    }
 
     const qualityGate = new QualityGate({
       sonar: sonar,
-      gitMerge: gitlabMerge
+      gitMerge: gitMerge
     })
 
     qualityGate.handler().then(result => {
@@ -118,7 +138,8 @@ export class Cli {
       Log.error(error);
     });
   }
-  private sonarScanner(callback: () => void) {
+
+  private runSonarScanner(callback: () => void) {
     const sonarScannerArgv = [];
     if (this.argv.define) {
       for (const i in this.argv.define) {
@@ -126,5 +147,38 @@ export class Cli {
       }
     }
     return this.exec.run(SONAR_SCANNER_CMD, sonarScannerArgv, callback);
+  }
+
+  private getMergeID(argv: Arguments): string {
+    if (argv.git.merge_id) {
+      return argv.git.merge_id;
+    }
+    if (process.env.CI_MERGE_REQUEST_IID) {
+      return process.env.CI_MERGE_REQUEST_IID
+    }
+    if (process.env.GITHUB_EVENT_PATH) {
+      return this.getGithubPullNumber();
+    }
+    return "";
+  }
+
+  private getProjectID(argv: Arguments): string {
+    if (argv.git.project_id) {
+      return argv.git.project_id;
+    }
+    if (process.env.CI_PROJECT_ID) {
+      return process.env.CI_PROJECT_ID;
+    }
+    if (process.env.GITHUB_REPOSITORY) {
+      return process.env.GITHUB_REPOSITORY;
+    }
+    return "";
+  }
+
+  private getGithubPullNumber() {
+    const ev = JSON.parse(
+      fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')
+    )
+    return ev.pull_request.number;
   }
 }

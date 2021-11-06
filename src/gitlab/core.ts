@@ -1,18 +1,18 @@
 import { Axios } from "../http";
-import { LineType, APIType } from "./enum";
+import { APIType } from "./enum";
 import * as entity from "./entity";
-import { Git, GitMerge } from "../git";
+import { Git, GitMerge, GitReviewParam } from "../git";
 
 export class Gitlab implements Git {
   host: string;
   http: Axios;
-  projectID: number;
+  projectID: string;
   headers?: any;
 
   constructor(opt: {
     host: string;
     token: string;
-    projectID: number;
+    projectID: string;
   }) {
     this.host = opt.host;
     this.projectID = opt.projectID;
@@ -28,7 +28,7 @@ export class GitlabMerge extends Gitlab implements GitMerge {
   constructor(opt: {
     host: string;
     token: string;
-    projectID: number;
+    projectID: string;
     mergeRequestIID: number;
   }) {
     super(opt);
@@ -74,32 +74,42 @@ export class GitlabMerge extends Gitlab implements GitMerge {
     return response.data;
   }
 
+  async saveQualityDiscussion(comment: string, headers?: any): Promise<entity.Notes> {
+    const discussion = await this.getQualityDiscussion();
+    let data = null;
+    if (discussion) {
+      data = await this.updateThread(discussion.id, comment, headers);
+    } else {
+      data = await this.createThread(comment, headers);
+    }
+    return data;
+  }
+
   async deleteThread(noteID: number, headers?: any): Promise<entity.Notes> {
     const api = `${APIType.Project}/${this.projectID}/merge_requests/${this.mergeRequestIID}/notes/${noteID}`;
     const response = await this.http.delete<entity.Notes>(api, {}, headers);
     return response.data;
   }
 
-  async createCommitComment(
-    param: {
-      commitSha: string,
-      note: string,
-      path: string,
-      line: number
-    },
-    headers?: any): Promise<entity.Notes> {
-    const api = `${APIType.Project}/${this.projectID}/commits/${param.commitSha}/discussions`;
-    const response = await this.http.post<entity.Notes>(
-      api,
-      {
-        line: param.line,
-        body: param.note,
-        path: param.path,
-        line_type: LineType.New,
-      },
-      headers
-    );
-    return response.data;
+  async createReviewComments(
+    params: GitReviewParam[]
+  ): Promise<entity.Notes[] | boolean> {
+    let data: any;
+    const version = await this.getVersion();
+    if (!version) {
+      return false;
+    }
+    for (const i in params) {
+      const response = this.createCommitDiscussion(
+        {
+          comment: params[i].comment,
+          path: params[i].path,
+          line: params[i].line,
+          version: version
+        });
+      data.push(response);
+    }
+    return data;
   }
 
   async createCommitDiscussion(

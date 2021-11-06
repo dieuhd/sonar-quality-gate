@@ -31,7 +31,10 @@ export class Axios {
 
   private generateURL(api: string, parameters: any): string {
     const qs = this.generateQuerystring(parameters);
-    return this.host.concat(api, "?", qs);
+    if (qs != "") {
+      return this.host.concat(api, "?", qs);  
+    }
+    return this.host.concat(api);
   }
 
 
@@ -51,6 +54,12 @@ export class Axios {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
     return axios.put<T, R, D>(url, data, { headers: mergeHeadrs });
+  }
+
+  patch<T = unknown, R = Response<T>, D = any>(api: string, data: any, paramters?: any, headers?: any): Promise<any> {
+    const url = this.generateURL(api, paramters);
+    const mergeHeadrs = { ...this.headers, ...headers };
+    return axios.patch<T, R, D>(url, data, { headers: mergeHeadrs });
   }
 
   delete<T = unknown, R = Response<T>, D = any>(api: string, paramters?: any, headers?: any): Promise<any> {

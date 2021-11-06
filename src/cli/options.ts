@@ -5,11 +5,18 @@ import path from "path";
 
 declare type ArgsOutput = (string | number)[];
 
+export enum Provide {
+  Gitlab = "gitlab",
+  Github = "github"
+}
+
 export interface Arguments {
   _: ArgsOutput;
+  provide: Provide;
+  skipScanner?: boolean;
+  define: (string | number)[] | undefined;
   git: { [key: string]: string };
   sonar: { [key: string]: string };
-  define: (string | number)[] | undefined;
   debug: boolean;
 }
 export function createOptions() {
@@ -24,6 +31,16 @@ export function createOptions() {
     .usage("Usage: $0 [options]")
     .help()
     .option("help", { alias: "h", group: "Global Options:" })
+    .option("provide", {
+      alias: "p",
+      group: "Global Options:",
+      default: Provide.Gitlab
+    })
+    .option("skip-scanner", {
+      group: "Global Options:",
+      desc: "Skip run sonar-scanner",
+      default: false
+    })
     .option("define", {
       alias: "D",
       requiresArg: true,
@@ -38,7 +55,7 @@ export function createOptions() {
       desc: "Config git \n" +
         "  --git.url Git server URL. Default: $GIT_URL\n" +
         "  --git.token Git token. Default: $GIT_TOKEN\n" +
-        "  --git.project_id Git project ID. Default: $CI_PROJECt_ID\n" +
+        "  --git.project_id Gitlab project ID or Github repository. Default: $CI_PROJECt_ID or $GITHUB_REPOSITORY\n" +
         "  --git.merge_id Git merge request IID. Default: $CI_MERGE_REQUEST_IID\n",
       default: {},
       group: "Global Options:",

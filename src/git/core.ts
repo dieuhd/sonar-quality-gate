@@ -1,28 +1,19 @@
+import { Axios } from "../http";
+
+export interface GitReviewParam {
+  comment: string;
+  path: string;
+  line: number;
+  [key: string]: any;
+}
+
 export interface Git {
   host: string;
+  http: Axios;
+  projectID: string;
 }
 
 export interface GitMerge {
-  getVersion(headers?: any): Promise<any>
-  getQualityDiscussion(headers?: any): Promise<any>
-  createThread(comment: string, headers?: any): Promise<any>
-  updateThread(noteID: number, comment: string, headers?: any): Promise<any>
-  createCommitComment(
-    param: {
-      commitSha: string,
-      note: string,
-      path: string,
-      line: number
-    },
-    headers?: any): Promise<any>
-  createCommitDiscussion(
-    param:
-      {
-        comment: string,
-        path: string,
-        line: number,
-        version: any
-      },
-    headers?: any
-  ): Promise<any>
+  createReviewComments(params: GitReviewParam[]): Promise<any>
+  saveQualityDiscussion(comment: string, headers?: any): Promise<any>
 }
