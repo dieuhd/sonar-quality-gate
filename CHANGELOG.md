@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.9...v1.1.0) (2021-11-07)
+
+
+### Features
+
+* add github ([af0609e](https://github.com/dieuhd/sonar-quality-gate/commit/af0609ec0e9d57422223dc8919b289e6480381b7))
+
 ## [1.0.9](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.8...v1.0.9) (2021-10-21)
 
 ## [1.0.8](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.7...v1.0.8) (2021-10-21)
