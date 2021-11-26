@@ -29,7 +29,7 @@ export class Sonar {
     } catch (e: any) {
       Log.error(e.message);
       this.host = opt.host;
-      this.projectKey = opt.host;
+      this.projectKey = opt.projectKey;
     }
     this.qualityGate = new SonarReport({ host: this.host, projectKey: this.projectKey });
 
