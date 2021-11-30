@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.0...v1.1.1) (2021-11-30)
+
+
+### Bug Fixes
+
+* get sonar project key ([bf77522](https://github.com/dieuhd/sonar-quality-gate/commit/bf77522bdf079e98e26568e1873dc88bc35d8280))
+
 # [1.1.0](https://github.com/dieuhd/sonar-quality-gate/compare/v1.0.9...v1.1.0) (2021-11-07)
 
 
