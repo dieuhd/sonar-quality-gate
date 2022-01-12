@@ -1,6 +1,6 @@
 # Sonar quality gate code
 
-Nowaday, Sonarqube have feature quality code gate, but it's not work for Community Edition. So, this plugin will be intergate to CI/CD, get quality code and push report to merge request when has change.
+Sonarqube have feature quality code gate, but it's not work for Community Edition. So, this plugin will be intergate to CI/CD, get quality code and push report to merge request when has change.
 
 **quality-gate** is a command line interface for quality code gate.
 - Analytics code: Use command `sonar-scanner` to analytic code, report and push issues to sonar servers.
