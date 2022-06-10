@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.5...v1.1.6) (2022-06-10)
+
+
+### Bug Fixes
+
+* entrypoint command ([00ced17](https://github.com/dieuhd/sonar-quality-gate/commit/00ced17e0fd16fe99497cee2f1c651051a8b2199))
+
 ## [1.1.5](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.4...v1.1.5) (2022-06-10)
 
 
