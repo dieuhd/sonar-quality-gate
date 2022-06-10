@@ -11,4 +11,4 @@ RUN npm run build
 RUN npm i -g
 RUN rm -rf src
 
-CMD sonar-scanner -v
+CMD sonar-scanner
