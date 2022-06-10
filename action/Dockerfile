@@ -1,3 +1,5 @@
 FROM dieuhd/sonar-quality-gate:latest
 
-CMD quality-gate --help
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
