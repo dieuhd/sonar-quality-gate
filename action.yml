@@ -3,9 +3,23 @@ description: 'This plugin will be intergate to CI/CD, get quality code of sonarq
 branding:
   icon: 'award'  
   color: 'green'
+inputs:
+  login: 
+    description: 'The authentication token or login of a SonarQube user with Execute Analysis permission on the project.'
+    required: true
+  url: 
+    description: 'the server URL'
+    required: false
+  projectKey: 
+    description: 'The project's unique key'
+    required: false
 outputs:
   time: # id of output
     description: 'The time we greeted you'
 runs:
   using: 'docker'
   image: 'action/Dockerfile'
+  args:
+    - sonar.login=${{ inputs.login }}
+    - sonar.host.url=${{ inputs.url }}
+    - sonar.projectKey=${{ inputs.projectKey }}

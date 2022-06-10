@@ -2,7 +2,7 @@
 argv=""
 for var in "$@"
 do
-    argv="$argv -D$var "
+    argv="$argv -D $var "
 done
 
 # run quality gate

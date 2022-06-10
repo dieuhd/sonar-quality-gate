@@ -23,6 +23,7 @@ declare global {
       CI_PROJECT_DIR: string;
       GITHUB_EVENT_PATH: string;
       GITHUB_REPOSITORY: string;
+      SONAR_PROJECT_KEY: string;
     }
   }
 }
@@ -49,7 +50,7 @@ export class Cli {
     this.gitMergeID = this.getMergeID(this.argv);
     this.sonarURL = this.argv.sonar.url ? this.argv.sonar.url : process.env.SONAR_URL;
     this.sonarToken = this.argv.sonar.token ? this.argv.sonar.token : process.env.SONAR_TOKEN;
-    this.sonarProjectKey = this.argv.sonar.project_key;
+    this.sonarProjectKey = this.argv.sonar.project_key ? this.argv.sonar.project_key : process.env.SONAR_PROJECT_KEY;
     
     if (!this.validate()) {
       process.exit(1);
