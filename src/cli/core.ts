@@ -56,7 +56,7 @@ export class Cli {
     }
 
     // check sonar-scanner installed
-    if (!commandExistsSync.sync(SONAR_SCANNER_CMD)) {
+    if (!this.argv.skipScanner && !commandExistsSync.sync(SONAR_SCANNER_CMD)) {
       Log.error("sonar-scanner not installed! \nGo to https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/ to install sonar-scanner");
       process.exit(-1);
     }
