@@ -101,6 +101,7 @@ export class Cli {
   }
 
   private generateReport() {
+    Log.info("---- generate report ----");
     const sonar = new Sonar({
       tokenKey: this.sonarToken,
       host: this.sonarURL,
