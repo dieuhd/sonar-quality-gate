@@ -24,6 +24,7 @@ declare global {
       GITHUB_EVENT_PATH: string;
       GITHUB_REPOSITORY: string;
       SONAR_PROJECT_KEY: string;
+      GITHUB_ACTION: string;
     }
   }
 }
@@ -109,7 +110,7 @@ export class Cli {
     });
 
     let gitMerge: GitMerge;
-    if (this.argv.provide == Provide.Github) {
+    if (this.argv.provide == Provide.Github || process.env.GITHUB_ACTION ) {
       gitMerge = new GithubMerge({
         host: this.gitURL,
         token: this.gitToken,
