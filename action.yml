@@ -1,5 +1,8 @@
 name: 'sonar-quality-gate'
 description: 'This plugin will be intergate to CI/CD, get quality code of sonarqube and push report to merge request when has change.'
+branding:
+  icon: 'award'  
+  color: 'green'
 outputs:
   time: # id of output
     description: 'The time we greeted you'
