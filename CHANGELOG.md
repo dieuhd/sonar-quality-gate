@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.4...v1.1.5) (2022-06-10)
+
+
+### Bug Fixes
+
+* action syntax ([d15ca1d](https://github.com/dieuhd/sonar-quality-gate/commit/d15ca1dd87f0ee53b5ed1a624c85fb51f7a70da0))
+
 ## [1.1.4](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.3...v1.1.4) (2022-06-10)
 
 
