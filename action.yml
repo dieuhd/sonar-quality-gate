@@ -1,5 +1,5 @@
 name: 'sonar-quality-gate'
-description: 'Sonarqube have feature quality code gate, but it is not work for Community Edition. So, this plugin will be intergate to CI/CD, get quality code and push report to merge request when has change.'
+description: 'This plugin will be intergate to CI/CD, get quality code of sonarqube and push report to merge request when has change.'
 outputs:
   time: # id of output
     description: 'The time we greeted you'
