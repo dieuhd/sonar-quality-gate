@@ -1,3 +1,10 @@
+## [1.1.10](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.9...v1.1.10) (2022-06-10)
+
+
+### Bug Fixes
+
+* remove debug ([e91d11e](https://github.com/dieuhd/sonar-quality-gate/commit/e91d11e980c54c9c6b3d13d84bd1fc0abcbf4f9e))
+
 ## [1.1.9](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.8...v1.1.9) (2022-06-10)
 
 
