@@ -42,6 +42,7 @@ export class Sonar {
 
   async getQualityStatus() {
     const response = await this.http.get<entity.Qualitygate>(SONAR_QUALITY_API, { projectKey: this.projectKey });
+    Log.info(response.data);
     return response.data;
   }
 
@@ -50,6 +51,7 @@ export class Sonar {
       component: this.projectKey,
       onlyCurrents: true,
     });
+    Log.info(response.data);
     return response.data;
   }
 
