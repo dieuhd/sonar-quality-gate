@@ -1,3 +1,11 @@
+## [1.1.4](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.3...v1.1.4) (2022-06-10)
+
+
+### Bug Fixes
+
+* add command quality ([c3cd3c7](https://github.com/dieuhd/sonar-quality-gate/commit/c3cd3c77dc6ef76e78b11ff5b0b16c141833cf43))
+* quality gate arguments ([7fdb747](https://github.com/dieuhd/sonar-quality-gate/commit/7fdb74764e6c31e77ede11afc27d5c35184477c3))
+
 ## [1.1.3](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.2...v1.1.3) (2022-06-10)
 
 
