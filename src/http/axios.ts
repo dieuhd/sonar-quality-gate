@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Log } from '../utils';
 
 export interface Response<T = unknown> {
   status: number;
@@ -34,6 +35,7 @@ export class Axios {
     if (qs != "") {
       return this.host.concat(api, "?", qs);  
     }
+    Log.info(this.host.concat(api));
     return this.host.concat(api);
   }
 
