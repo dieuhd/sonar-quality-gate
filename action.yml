@@ -11,7 +11,7 @@ inputs:
     description: 'the server URL'
     required: false
   projectKey: 
-    description: 'The project's unique key'
+    description: 'The project unique key'
     required: false
 outputs:
   time: # id of output
