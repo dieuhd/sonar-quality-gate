@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.2...v1.1.3) (2022-06-10)
+
+
+### Bug Fixes
+
+* skip check scanner ([26d14aa](https://github.com/dieuhd/sonar-quality-gate/commit/26d14aa1b3a1ef02e23fd4ca01254812068901de))
+
 ## [1.1.2](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.1...v1.1.2) (2022-06-10)
 
 
