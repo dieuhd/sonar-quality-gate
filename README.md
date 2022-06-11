@@ -112,6 +112,36 @@ Sonar:
 
 **P/S: Only work for merge request. Becase, the plugin need Merge Request IID.**
 
+## [Run with Github Action](https://github.com/marketplace/actions/sonar-quality-gate)
+
+Example:
+```yaml
+name: Check sonarqube
+on: [pull_request]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Sonar Quality Gate
+        uses: dieuhd/sonar-quality-gate@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GIT_URL: "https://api.github.com"
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }} 
+          SONAR_URL: ${{ secrets.SONAR_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        with:
+          login:  ${{ secrets.SONAR_TOKEN }}
+          url: ${{ secrets.SONAR_URL }}
+          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+```
+
 ## Contribute
 
 ```bash
