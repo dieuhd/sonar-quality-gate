@@ -77,6 +77,9 @@ export class QualityGate {
     );
     // create quality report
     await this.gitMerge.saveQualityDiscussion(comment);
+    if (bugCnt + vulCnt + smellCnt > 0) {
+      return false;
+    }
     return true;
   }
 }
