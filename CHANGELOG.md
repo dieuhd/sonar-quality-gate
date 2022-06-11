@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.11...v1.1.12) (2022-06-11)
+
+
+### Bug Fixes
+
+* upgrade lib for security ([da6a647](https://github.com/dieuhd/sonar-quality-gate/commit/da6a647e704bf96053db3f55ea93178a4becab5e))
+
 ## [1.1.11](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.10...v1.1.11) (2022-06-11)
 
 
