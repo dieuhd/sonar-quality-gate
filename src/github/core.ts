@@ -71,7 +71,7 @@ export class GithubMerge extends Github implements GitMerge {
     const discussion = await this.getQualityDiscussion();
     let data = null;
     if (discussion) {
-      data = await this.updateComment(discussion.id, comment + "--909876", headers);
+      data = await this.updateComment(discussion.id, comment, headers);
     } else {
       data = await this.createComment(comment, headers);
     }

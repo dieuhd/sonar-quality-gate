@@ -2,8 +2,8 @@
 argv=""
 for var in "$@"
 do
-    argv="$argv -D $var "
+    argv="$argv $var "
 done
 
 # run quality gate
-quality-gate $argv
+quality-gate $argv -p=github
