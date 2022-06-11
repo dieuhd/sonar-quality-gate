@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.10...v1.1.11) (2022-06-11)
+
+
+### Bug Fixes
+
+* fix action, return error when has bug ([fe0fb06](https://github.com/dieuhd/sonar-quality-gate/commit/fe0fb067203e27f775e0a95c70e631639a3cdffa))
+
 ## [1.1.10](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.9...v1.1.10) (2022-06-10)
 
 
