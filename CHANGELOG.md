@@ -1,3 +1,10 @@
+## [1.1.13](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.12...v1.1.13) (2022-08-23)
+
+
+### Bug Fixes
+
+* change time get issue to submited ([84f3b71](https://github.com/dieuhd/sonar-quality-gate/commit/84f3b71a1047614bb905e5e02f6287543a7c6f95))
+
 ## [1.1.12](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.11...v1.1.12) (2022-06-11)
 
 
