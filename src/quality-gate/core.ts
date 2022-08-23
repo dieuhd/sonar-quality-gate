@@ -33,15 +33,15 @@ export class QualityGate {
     if (!taskStatus || taskStatus.tasks.length == 0) {
       return false;
     }
-    const taskCreatedTime = new Date(taskStatus.tasks[0].startedAt);
+    const taskSubmmitTime = new Date(taskStatus.tasks[0].submittedAt);
     // get previous 1 minutes
-    taskCreatedTime.setSeconds(taskCreatedTime.getSeconds() - INTERVAL_SECONDS);
+    taskSubmmitTime.setSeconds(taskSubmmitTime.getSeconds() - INTERVAL_SECONDS);
 
     const quality = await this.sonar.getQualityStatus();
     if (!quality) {
       return false;
     }
-    const sonarIssues = await this.sonar.findIssues(taskCreatedTime.isoDateTime());
+    const sonarIssues = await this.sonar.findIssues(taskSubmmitTime.isoDateTime());
     if (!sonarIssues) {
       return false;
     }
