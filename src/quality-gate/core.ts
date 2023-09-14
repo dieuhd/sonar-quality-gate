@@ -61,10 +61,16 @@ export class QualityGate {
       } else {
         smellCnt++;
       }
+
+      let line = issue.textRange.startLine;
+      if (issue.line !== undefined) {
+        line = issue.line;
+      }
+
       gitmergeParams.push({
         comment: this.sonar.qualityGate.issueNote(issue),
         path: path,
-        line: issue.line
+        line: line
       })
     }
     // create review comments
