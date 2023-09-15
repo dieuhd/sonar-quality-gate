@@ -1,3 +1,11 @@
+## [1.1.14](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.13...v1.1.14) (2023-09-15)
+
+
+### Bug Fixes
+
+* config sonar action in git ([ef6f149](https://github.com/dieuhd/sonar-quality-gate/commit/ef6f149f287393e2aa81774fb74c2ebb31fe8e13))
+* judge issue line ([fd991c3](https://github.com/dieuhd/sonar-quality-gate/commit/fd991c395922ceffbb83d58aa6ece0bc339f77cd))
+
 ## [1.1.13](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.12...v1.1.13) (2022-08-23)
 
 
