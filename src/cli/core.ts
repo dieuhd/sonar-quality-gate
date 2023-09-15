@@ -56,6 +56,7 @@ export class Cli {
     if (!this.validate()) {
       process.exit(1);
     }
+    this.formatParameters();
 
     // check sonar-scanner installed
     if (!this.argv.skipScanner && !commandExistsSync.sync(SONAR_SCANNER_CMD)) {
@@ -74,6 +75,15 @@ export class Cli {
     } catch (e) {
       Log.error(e);
     }
+  }
+
+  private formatParameters() {
+    this.gitURL = this.gitURL.replace(/['"]+/g, '');
+    this.gitToken = this.gitToken.replace(/['"]+/g, '');
+    this.gitProjectID = this.gitProjectID.replace(/['"]+/g, '');
+    this.sonarToken = this.sonarToken.replace(/['"]+/g, '');
+    this.sonarToken = this.sonarToken.replace(/['"]+/g, '');
+    this.sonarProjectKey = this.sonarProjectKey.replace(/['"]+/g, '');
   }
 
   private validate() {
@@ -130,7 +140,6 @@ export class Cli {
       sonar: sonar,
       gitMerge: gitMerge
     })
-
     qualityGate.handler().then(result => {
       if (!result) {
         Log.error("Quality Gate ran failed.");

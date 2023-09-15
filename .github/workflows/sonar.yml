@@ -1,0 +1,38 @@
+name: Validate
+on:
+  - pull_request
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    name: Test sonarqube
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create and populate .Renviron file
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GIT_URL: "https://api.github.com"
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }} 
+          SONAR_URL: ${{ secrets.SONAR_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        run: |
+          cat <<EOF > docker.env
+          GITHUB_TOKEN="$GITHUB_TOKEN"
+          GIT_URL="$GIT_URL"
+          GIT_TOKEN="$GIT_TOKEN"
+          SONAR_TOKEN="$SONAR_TOKEN"
+          SONAR_PROJECT_KEY="$SONAR_PROJECT_KEY"
+          GITHUB_REPOSITORY="$GITHUB_REPOSITORY"
+          GITHUB_EVENT_PATH="$GITHUB_EVENT_PATH"
+          EOF
+          echo $PWD
+      - name: Build docker images
+        run: |
+          docker build -t dieuhd/sonar-quality-gate .
+          docker build -t sonar-quality-gate action/
+          
+      - name: Run tests
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: docker run -i -v "$PWD:/srv" --env-file docker.env -w /srv sonar-quality-gate -D sonar.login=$SONAR_TOKEN --git.merge_id="${{ github.event.number }}"

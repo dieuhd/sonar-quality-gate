@@ -20,7 +20,7 @@ export class Shell {
     });
 
     child.on('close', function (code) {
-      Log.info(code);
+      Log.info("error code = " + code);
       if (callback) {
         callback();
       }
