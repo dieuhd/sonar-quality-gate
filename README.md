@@ -83,8 +83,20 @@ We can use short command:
 quality-gate -Dsonar.login=""
 ```
 
+## Config CI/CD
 
-## Run with Gitlab-CI
+### Add sonar-project.properties
+Add new file `sonar-project.properties` as below content:
+
+```
+# sonar.organization=dieuhd # if use sonarcloud, uncomment this line
+sonar.host.url=[SONAR_HOST]
+sonar.projectKey=[SONAR_PROJECT_KEY]
+sonar.qualitygate.wait=true
+```
+Ref: [sonar-project.properties](./sonar-project.properties)
+
+### Run with Gitlab-CI
 Use `quality-gate` instead of `sonar-scanner`.
 
 Example:
@@ -112,7 +124,7 @@ Sonar:
 
 **P/S: Only work for merge request. Becase, the plugin need Merge Request IID.**
 
-## [Run with Github Action](https://github.com/marketplace/actions/sonar-quality-gate)
+### [Run with Github Action](https://github.com/marketplace/actions/sonar-quality-gate)
 
 Example:
 ```yaml
