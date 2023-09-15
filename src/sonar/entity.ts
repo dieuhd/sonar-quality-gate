@@ -23,6 +23,7 @@ export interface Issue {
   message: string;
   severity: string;
   line: number;
+  textRange: TextRange;
   author?: string;
   assignee?: string;
   effort: string;
@@ -30,6 +31,12 @@ export interface Issue {
   type: string;
 }
 
+export interface TextRange {
+  startLine: number;
+  endLine: number;
+  startOffset: number;
+  endOffset: number;
+}
 export interface IssueList {
   issues: Issue[];
   total: number;

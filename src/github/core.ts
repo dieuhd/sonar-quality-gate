@@ -17,7 +17,7 @@ export class Github implements Git {
     this.projectID = opt.projectID;
 
     const headers = {
-      "Authorization": "token " + opt.token,
+      "Authorization": "Bearer " + opt.token,
       "Accept": "application/vnd.github.v3+json"
     };
     this.headers = headers;
@@ -82,7 +82,6 @@ export class GithubMerge extends Github implements GitMerge {
     params: GitReviewParam[]
   ): Promise<Comment | null> {
     const api = `/repos/${this.projectID}/pulls/${this.mergeRequestID}/reviews`;
-
     const comments: any = [];
     for (const i in params) {
       comments.push({

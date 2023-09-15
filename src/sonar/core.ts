@@ -35,7 +35,7 @@ export class Sonar {
 
     const headers = {
       Authorization:
-        "Basic " + Buffer.from(opt.tokenKey + ":" + "").toString("base64"),
+        "Bearer " + opt.tokenKey
     };
     this.http = new Axios({ host: this.host, headers: headers });
   }
