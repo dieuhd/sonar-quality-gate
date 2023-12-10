@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.14...v1.1.15) (2023-12-10)
+
+
+### Bug Fixes
+
+* initialize empty data array for review comments creation ([4d3bb73](https://github.com/dieuhd/sonar-quality-gate/commit/4d3bb73f0c3d482603a9367a4688e9067dd4a4c8))
+
 ## [1.1.14](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.13...v1.1.14) (2023-09-15)
 
 
