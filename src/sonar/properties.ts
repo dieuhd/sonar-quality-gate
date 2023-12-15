@@ -3,6 +3,8 @@ import fs from "fs";
 const PROJECT_KEY_PROPERTY = "sonar.projectKey";
 const HOST_URL_PROPERTY = "sonar.host.url";
 
+const ENVIRONMENT_VARIABLE_REGEX = /^\$\{env\.(?<env>.*)\}$/;
+
 export class SonarProperties {
   projectDir: string;
   private properties: { [key: string]: string; } = {};
@@ -23,7 +25,13 @@ export class SonarProperties {
       if (data.length != 2) {
         continue;
       }
-      this.properties[data[0]] = data[1];
+
+      const match = ENVIRONMENT_VARIABLE_REGEX.exec(data[1]);
+      if (match?.groups?.env && process.env[match.groups.env]) {
+        this.properties[data[0]] = process.env[match.groups.env] as string;
+      } else {
+        this.properties[data[0]] = data[1];
+      }
     }
   }
 
