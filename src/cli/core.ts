@@ -25,6 +25,7 @@ declare global {
       GITHUB_REPOSITORY: string;
       SONAR_PROJECT_KEY: string;
       GITHUB_ACTION: string;
+      DEBUG: string;
     }
   }
 }
@@ -44,7 +45,11 @@ export class Cli {
   constructor() {
     this.argv = createOptions();
     this.exec = new Shell();
-    
+    if (this.argv.debug) {
+      process.env['DEBUG'] = "true";
+    }
+    Log.info("--- START SCAN ---");
+    Log.debug("load argv", this.argv);
     this.gitURL = this.argv.git.url ? this.argv.git.url : process.env.GIT_URL;
     this.gitToken = this.argv.git.token ? this.argv.git.token : process.env.GIT_TOKEN;
     this.gitProjectID = this.getProjectID(this.argv);
@@ -112,7 +117,10 @@ export class Cli {
   }
 
   private generateReport() {
-    Log.info("---- generate report ----");
+    Log.debug("generate report", {
+      provide: this.argv.provide,
+      githubAction: process.env.GITHUB_ACTION
+    });
     const sonar = new Sonar({
       tokenKey: this.sonarToken,
       host: this.sonarURL,
@@ -158,6 +166,7 @@ export class Cli {
         sonarScannerArgv.push("-D" + this.argv.define[i]);
       }
     }
+    Log.debug("Run sonar scanner", sonarScannerArgv);
     return this.exec.run(SONAR_SCANNER_CMD, sonarScannerArgv, callback);
   }
 
