@@ -1,3 +1,10 @@
+## [1.1.16](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.15...v1.1.16) (2023-12-15)
+
+
+### Bug Fixes
+
+* upgrade sonar scanner, add debug mode ([cf1a428](https://github.com/dieuhd/sonar-quality-gate/commit/cf1a428632827b8dc8e733901363d89f69401ee5))
+
 ## [1.1.15](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.14...v1.1.15) (2023-12-10)
 
 
