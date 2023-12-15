@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.16...v1.2.0) (2023-12-15)
+
+
+### Features
+
+* resolve env-variables in sonar-project.properties file ([b1fdf4b](https://github.com/dieuhd/sonar-quality-gate/commit/b1fdf4ba4c2d565cf198879a9245fa582c86b558))
+
 ## [1.1.16](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.15...v1.1.16) (2023-12-15)
 
 
