@@ -1,5 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
+import {setupInterceptorsTo} from "./interceptors";
 
+setupInterceptorsTo(axios);
 export interface Response<T = unknown> {
   status: number;
   statusText: string;
@@ -10,11 +12,7 @@ export class Axios {
   host: string;
   headers?: any;
 
-  constructor(opt: {
-    host: string;
-    headers?: any;
-  },
-  ) {
+  constructor(opt: { host: string; headers?: any }) {
     this.host = opt.host;
     this.headers = opt.headers;
   }
@@ -32,37 +30,59 @@ export class Axios {
   private generateURL(api: string, parameters: any): string {
     const qs = this.generateQuerystring(parameters);
     if (qs != "") {
-      return this.host.concat(api, "?", qs);  
+      return this.host.concat(api, "?", qs);
     }
     return this.host.concat(api);
   }
 
-
-  get<T = unknown, R = Response<T>, D = any>(api: string, paramters?: any, headers?: any): Promise<R> {
+  get<T = unknown, R = Response<T>, D = any>(
+    api: string,
+    paramters?: any,
+    headers?: any
+  ): Promise<R> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
     return axios.get<T, R, D>(url, { headers: mergeHeadrs });
   }
 
-  post<T = unknown, R = Response<T>, D = any>(api: string, data: any, paramters?: any, headers?: any): Promise<any> {
+  post<T = unknown, R = Response<T>, D = any>(
+    api: string,
+    data: any,
+    paramters?: any,
+    headers?: any
+  ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
     return axios.post<T, R, D>(url, data, { headers: mergeHeadrs });
   }
 
-  put<T = unknown, R = Response<T>, D = any>(api: string, data: any, paramters?: any, headers?: any): Promise<any> {
+  put<T = unknown, R = Response<T>, D = any>(
+    api: string,
+    data: any,
+    paramters?: any,
+    headers?: any
+  ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
     return axios.put<T, R, D>(url, data, { headers: mergeHeadrs });
   }
 
-  patch<T = unknown, R = Response<T>, D = any>(api: string, data: any, paramters?: any, headers?: any): Promise<any> {
+  patch<T = unknown, R = Response<T>, D = any>(
+    api: string,
+    data: any,
+    paramters?: any,
+    headers?: any
+  ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
     return axios.patch<T, R, D>(url, data, { headers: mergeHeadrs });
   }
 
-  delete<T = unknown, R = Response<T>, D = any>(api: string, paramters?: any, headers?: any): Promise<any> {
+  delete<T = unknown, R = Response<T>, D = any>(
+    api: string,
+    paramters?: any,
+    headers?: any
+  ): Promise<any> {
     const url = this.generateURL(api, paramters);
     const mergeHeadrs = { ...this.headers, ...headers };
     return axios.delete<T, R, D>(url, { headers: mergeHeadrs });

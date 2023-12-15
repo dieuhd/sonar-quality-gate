@@ -17,11 +17,7 @@ export class Sonar {
   qualityGate: SonarReport;
   config?: SonarProperties;
 
-  constructor(opt: {
-    tokenKey: string;
-    host: string;
-    projectKey: string;
-  }) {
+  constructor(opt: { tokenKey: string; host: string; projectKey: string }) {
     try {
       this.config = new SonarProperties({ projectDir: process.cwd() });
       this.host = this.config.getSonarURL();
@@ -31,21 +27,28 @@ export class Sonar {
       this.host = opt.host;
       this.projectKey = opt.projectKey;
     }
-    this.qualityGate = new SonarReport({ host: this.host, projectKey: this.projectKey });
+    this.qualityGate = new SonarReport({
+      host: this.host,
+      projectKey: this.projectKey,
+    });
 
     const headers = {
-      Authorization:
-        "Bearer " + opt.tokenKey
+      Authorization: "Bearer " + opt.tokenKey,
     };
     this.http = new Axios({ host: this.host, headers: headers });
   }
 
   async getQualityStatus() {
-    const response = await this.http.get<entity.Qualitygate>(SONAR_QUALITY_API, { projectKey: this.projectKey });
+    Log.debug("sonar get quality status", SONAR_QUALITY_API);
+    const response = await this.http.get<entity.Qualitygate>(
+      SONAR_QUALITY_API,
+      { projectKey: this.projectKey }
+    );
     return response.data;
   }
 
   async getTaskStatus() {
+    Log.debug("sonar get task status", SONAR_TASK_API);
     const response = await this.http.get<entity.Tasks>(SONAR_TASK_API, {
       component: this.projectKey,
       onlyCurrents: true,
@@ -60,11 +63,14 @@ export class Sonar {
       // sinceLeakPeriod: true, // get issues of new code on sonar
       p: page,
       ps: PAGE_SIZE,
-    })
+    });
     return response.data;
   }
 
   async findIssues(fromTime: string): Promise<entity.IssueList> {
+    Log.debug("sonar find issues: ", {
+      fromTime: fromTime,
+    });
     // first page data
     const issues = await this.findIssuesByPage(fromTime, 1);
     const issueList = issues;

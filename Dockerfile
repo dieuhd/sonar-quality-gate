@@ -1,4 +1,6 @@
-FROM sonarsource/sonar-scanner-cli:4.6
+FROM sonarsource/sonar-scanner-cli:5.0.1
+
+RUN apk add --update nodejs npm
 
 ENV WORKDIR=/app
 
