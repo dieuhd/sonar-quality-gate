@@ -57,7 +57,7 @@ export class Cli {
     this.sonarURL = this.argv.sonar.url ? this.argv.sonar.url : process.env.SONAR_URL;
     this.sonarToken = this.argv.sonar.token ? this.argv.sonar.token : process.env.SONAR_TOKEN;
     this.sonarProjectKey = this.argv.sonar.project_key ? this.argv.sonar.project_key : process.env.SONAR_PROJECT_KEY;
-    
+
     if (!this.validate()) {
       process.exit(1);
     }
@@ -124,7 +124,9 @@ export class Cli {
     const sonar = new Sonar({
       tokenKey: this.sonarToken,
       host: this.sonarURL,
-      projectKey: this.sonarProjectKey
+      projectKey: this.sonarProjectKey,
+      branchPluginEnabled: this.argv.sonarBranchPlugin,
+      branchPluginMergeId: parseInt(this.gitMergeID)
     });
 
     let gitMerge: GitMerge;

@@ -1,7 +1,7 @@
 import { Git, GitMerge, GitReviewParam } from "../git";
 import { Sonar } from "../sonar";
 
-const INTERVAL_SECONDS = 60;
+const INTERVAL_SECONDS = 300;
 
 declare global {
   interface Date {

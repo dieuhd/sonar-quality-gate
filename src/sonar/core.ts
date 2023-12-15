@@ -17,7 +17,13 @@ export class Sonar {
   qualityGate: SonarReport;
   config?: SonarProperties;
 
-  constructor(opt: { tokenKey: string; host: string; projectKey: string }) {
+  constructor(opt: {
+    tokenKey: string;
+    host: string;
+    projectKey: string;
+    branchPluginEnabled?: boolean;
+    branchPluginMergeId?: number;
+  }) {
     try {
       this.config = new SonarProperties({ projectDir: process.cwd() });
       this.host = this.config.getSonarURL();
@@ -30,6 +36,8 @@ export class Sonar {
     this.qualityGate = new SonarReport({
       host: this.host,
       projectKey: this.projectKey,
+      branchPluginEnabled: opt.branchPluginEnabled,
+      branchPluginMergeId: opt.branchPluginMergeId,
     });
 
     const headers = {
@@ -39,10 +47,18 @@ export class Sonar {
   }
 
   async getQualityStatus() {
+    const parameters: entity.SonarApiRequestParameters = {
+      projectKey: this.projectKey,
+    }
+
+    if (this.qualityGate.branchPluginEnabled) {
+      parameters.pullRequest = this.qualityGate.branchPluginMergeId;
+    }
+
     Log.debug("sonar get quality status", SONAR_QUALITY_API);
     const response = await this.http.get<entity.Qualitygate>(
       SONAR_QUALITY_API,
-      { projectKey: this.projectKey }
+      parameters
     );
     return response.data;
   }
@@ -57,13 +73,19 @@ export class Sonar {
   }
 
   private async findIssuesByPage(fromTime: string, page: number) {
-    const response = await this.http.get<entity.IssueList>(SONAR_ISSUE_API, {
+    const parameters: entity.SonarApiRequestParameters = {
       componentKeys: this.projectKey,
-      createdAfter: fromTime,
       // sinceLeakPeriod: true, // get issues of new code on sonar
       p: page,
       ps: PAGE_SIZE,
-    });
+      createdAfter: fromTime,
+    };
+
+    if (this.qualityGate.branchPluginEnabled) {
+      parameters.pullRequest = this.qualityGate.branchPluginMergeId;
+    }
+
+    const response = await this.http.get<entity.IssueList>(SONAR_ISSUE_API, parameters);
     return response.data;
   }
 

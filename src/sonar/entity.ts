@@ -55,3 +55,13 @@ export interface Task {
 export interface Tasks {
   tasks: Task[];
 }
+
+export interface SonarApiRequestParameters {
+  projectKey?: string;
+  componentKeys?: string;
+  sinceLeakPeriod?: boolean;
+  createdAfter?: string;
+  pullRequest?: number;
+  p?: number;
+  ps?: number;
+}
