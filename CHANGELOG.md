@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/dieuhd/sonar-quality-gate/compare/v1.2.1...v1.3.0) (2024-01-12)
+
+
+### Features
+
+* pull request support if using SonarQube community version with community-branch-plugin ([1579299](https://github.com/dieuhd/sonar-quality-gate/commit/15792990304995a6b29a00abdbe2885d24660c3b))
+
 ## [1.2.1](https://github.com/dieuhd/sonar-quality-gate/compare/v1.2.0...v1.2.1) (2024-01-12)
 
 
