@@ -12,7 +12,7 @@ const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
 };
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  Log.debug("[axios] request error", error);
+  Log.debug("[axios] request error", error.toJSON());
   return Promise.reject(error);
 };
 
@@ -22,7 +22,7 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 };
 
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  Log.debug("[axios] response error", error);
+  Log.debug("[axios] response error", error.toJSON());
   return Promise.reject(error);
 };
 

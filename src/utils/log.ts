@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { decycle } from "./stringify";
 
 class Logger {
   info(message: any) {
@@ -10,10 +11,12 @@ class Logger {
       return;
     }
     console.log(
-      JSON.stringify({
-        action: action,
-        data: message,
-      })
+      JSON.stringify(
+        decycle({
+          action: action,
+          data: message,
+        })
+      )
     );
   }
 
