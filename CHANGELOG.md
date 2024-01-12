@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/dieuhd/sonar-quality-gate/compare/v1.2.0...v1.2.1) (2024-01-12)
+
+
+### Bug Fixes
+
+* exception bug for debug mode ([8fd587f](https://github.com/dieuhd/sonar-quality-gate/commit/8fd587faca29bcff94b14c93cc02c9483f16c86a))
+
 # [1.2.0](https://github.com/dieuhd/sonar-quality-gate/compare/v1.1.16...v1.2.0) (2023-12-15)
 
 
