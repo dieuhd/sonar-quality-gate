@@ -6,12 +6,18 @@ const IMAGE_DIR_LINK = "https://hsonar.s3.ap-southeast-1.amazonaws.com/images/";
 export class SonarReport {
   host?: string;
   projectKey?: string;
+  branchPluginEnabled?: boolean;
+  branchPluginMergeId?: number;
   constructor(opt: {
     host?: string;
     projectKey?: string;
+    branchPluginEnabled?: boolean;
+    branchPluginMergeId?: number;
   }) {
     this.host = opt.host;
     this.projectKey = opt.projectKey;
+    this.branchPluginEnabled = opt.branchPluginEnabled;
+    this.branchPluginMergeId = opt.branchPluginMergeId;
   }
 
   private capitalize(text: string) {
@@ -57,12 +63,22 @@ export class SonarReport {
     return level[val];
   }
 
+  private appendPullRequestIdIfBranchPluginEnabled(url: string) {
+    if (this.branchPluginEnabled) {
+      return `${url}&pullRequest=${this.branchPluginMergeId}`
+    }
+
+    return url;
+  }
+
   private getIssueURL(type: string) {
-    return this.host + `/project/issues?id=${this.projectKey}&resolved=false&sinceLeakPeriod=true&types=${type}`;
+    const url = this.host + `/project/issues?id=${this.projectKey}&resolved=false&sinceLeakPeriod=true&types=${type}`;
+    return this.appendPullRequestIdIfBranchPluginEnabled(url);
   }
 
   private getMetricURL(metric: string) {
-    return this.host + `/project/issues?id=${this.projectKey}&metric=${metric}&view=list`;
+    const url = this.host + `/project/issues?id=${this.projectKey}&metric=${metric}&view=list`;
+    return this.appendPullRequestIdIfBranchPluginEnabled(url);
   }
 
   private getIssueSecurity(projectStatus: ProjectStatus) {
@@ -121,7 +137,7 @@ export class SonarReport {
       status = "failed";
     }
 
-    const report = `# SonarQube Code Analytics 
+    const report = `# SonarQube Code Analytics
 ## Quality Gate ${status}
 
 ${this.icon(status)}
