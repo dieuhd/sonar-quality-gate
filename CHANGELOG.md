@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/dieuhd/sonar-quality-gate/compare/v1.3.0...v1.3.1) (2024-02-24)
+
+
+### Bug Fixes
+
+* argv data type are not string ([e88266b](https://github.com/dieuhd/sonar-quality-gate/commit/e88266bbd0d6df272d3b08a30b109aee06edeea5))
+
 # [1.3.0](https://github.com/dieuhd/sonar-quality-gate/compare/v1.2.1...v1.3.0) (2024-01-12)
 
 
