@@ -44,11 +44,11 @@ export class Cli {
 
   constructor() {
     this.argv = createOptions();
+    Log.info(this.argv);
     this.exec = new Shell();
     if (this.argv.debug) {
       process.env['DEBUG'] = "true";
     }
-    Log.info("--- START SCAN ---");
     Log.debug("load argv", this.argv);
     this.gitURL = this.argv.git.url ? this.argv.git.url : process.env.GIT_URL;
     this.gitToken = this.argv.git.token ? this.argv.git.token : process.env.GIT_TOKEN;
@@ -56,7 +56,7 @@ export class Cli {
     this.gitMergeID = this.getMergeID(this.argv);
     this.sonarURL = this.argv.sonar.url ? this.argv.sonar.url : process.env.SONAR_URL;
     this.sonarToken = this.argv.sonar.token ? this.argv.sonar.token : process.env.SONAR_TOKEN;
-    this.sonarProjectKey = this.argv.sonar.project_key ? this.argv.sonar.project_key : process.env.SONAR_PROJECT_KEY;
+    this.sonarProjectKey = this.argv.sonar.project_key ? this.argv.sonar.project_key : process.env.SONAR_PROJECT_KEY || "";
 
     if (!this.validate()) {
       process.exit(1);
@@ -83,12 +83,12 @@ export class Cli {
   }
 
   private formatParameters() {
-    this.gitURL = this.gitURL.replace(/['"]+/g, '');
-    this.gitToken = this.gitToken.replace(/['"]+/g, '');
-    this.gitProjectID = this.gitProjectID.replace(/['"]+/g, '');
-    this.sonarToken = this.sonarToken.replace(/['"]+/g, '');
-    this.sonarToken = this.sonarToken.replace(/['"]+/g, '');
-    this.sonarProjectKey = this.sonarProjectKey.replace(/['"]+/g, '');
+    this.gitURL = this.gitURL.toString().replace(/['"]+/g, '');
+    this.gitToken = this.gitToken.toString().replace(/['"]+/g, '');
+    this.gitProjectID = this.gitProjectID.toString().replace(/['"]+/g, '');
+    this.sonarToken = this.sonarToken.toString().replace(/['"]+/g, '');
+    this.sonarToken = this.sonarToken.toString().replace(/['"]+/g, '');
+    this.sonarProjectKey = this.sonarProjectKey.toString().replace(/['"]+/g, '');
   }
 
   private validate() {
