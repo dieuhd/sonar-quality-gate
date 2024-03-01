@@ -1,4 +1,4 @@
-name: Validate
+name: Quality Gate Test
 on:
   pull_request:
     branches:

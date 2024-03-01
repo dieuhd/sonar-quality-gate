@@ -1,4 +1,4 @@
-name: Validate
+name: Quality Gate Prod
 on:
   pull_request:
     branches:
