@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/dieuhd/sonar-quality-gate/compare/v1.3.1...v1.3.2) (2024-06-07)
+
+
+### Bug Fixes
+
+* add exit code when exception ([051770a](https://github.com/dieuhd/sonar-quality-gate/commit/051770a349b4f038fce9059c78f1bf6e86948640))
+
 ## [1.3.1](https://github.com/dieuhd/sonar-quality-gate/compare/v1.3.0...v1.3.1) (2024-02-24)
 
 
