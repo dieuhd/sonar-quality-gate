@@ -79,6 +79,7 @@ export class Cli {
       }
     } catch (e) {
       Log.error(e);
+      process.exit(1);
     }
   }
 
@@ -158,6 +159,7 @@ export class Cli {
       Log.info("Quality Gate ran successful.");
     }).catch(error => {
       Log.error(error);
+      process.exit(1);
     });
   }
 
