@@ -94,6 +94,7 @@ export class Cli {
 
   private validate() {
     let isValid = true;
+    let isValid2 = true; // for test quality gate
     if (!this.gitURL) {
       Log.error("Missing config git url.");
       isValid = false;
